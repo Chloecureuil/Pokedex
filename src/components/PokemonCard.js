@@ -1,22 +1,14 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-export default function PokemonCard({ pokemons }) {
+export default function PokemonCard({ name, number, type, image, color }) {
   return (
-    <View style={styles.container}>
-      {pokemons.map((pokemon) => (
-          <View key={pokemon.number} style={[styles.card, { backgroundColor: pokemon.color }]}>          <Image
-            source={{
-              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.number}.png`,
-            }}
-            style={styles.photoProfil}
-          />
-          <View style={styles.bio}>
-            <Text style={styles.sub}>#{pokemon.number}</Text>
-            <Text style={styles.name}>{pokemon.name}</Text>
-            <Text style={styles.type}>Type : {pokemon.type}</Text>
-          </View>
-        </View>
-      ))}
+    <View style={[styles.card, { backgroundColor: color }]}>      
+      <Image source={{ uri: image }} style={styles.image} />
+      <View style={styles.bio}>
+        <Text style={styles.sub}>#{number}</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.type}>Type : {type}</Text>
+      </View>
     </View>
   );
 }
@@ -41,12 +33,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 15
   },
-  photoProfil: {
-    height: 80,
+  image: {
     width: 80,
-    borderRadius: 40,
-    borderWidth: 3,
-    borderColor: "white",
+    height: 80,
+    resizeMode: "contain",
   },
   sub: {
     fontSize: 16,
@@ -61,4 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "black",
   },
+  scrollViewContent: {
+    maxHeight: 600,
+  }
 });

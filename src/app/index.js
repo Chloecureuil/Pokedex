@@ -1,27 +1,47 @@
 import PokemonCard from "@/components/PokemonCard";
 import Titres from "@/components/Titre";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   return (
-    <View>
+    <View style={styles.container}>
       <Titres />
-      <PokemonCard pokemons={POKEMONS} />
+      <Text style={styles.subtitle}>{`Il y a ${POKEMONS.length} pokemons !`}</Text>
+      
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {POKEMONS.map((pokemon) => (
+          <PokemonCard
+            key={pokemon.number}
+            name={pokemon.name}
+            number={pokemon.number}
+            type={pokemon.type}
+            color={pokemon.color}
+            image={`${ARTWORK}${pokemon.number}.png`}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1, // Permet au View de prendre tout l'écran
+    paddingTop: 50,
+  },
+  subtitle: {
+    fontSize: 18,
+    marginVertical: 10,
+    textAlign: "center",
+  },
+  scrollContent: {
+    alignItems: "center", // Centre les cartes à l'intérieur du ScrollView
+    paddingBottom: 20,
   },
 });
 
 const ARTWORK =
-"https://raw.githubusercontent.com/PokeAPI/sprites" +
-"/master/sprites/pokemon/other/official-artwork/";
+"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 
 const POKEMONS = [
   { number: 1, name: "Bulbizarre", type: "Plante", color: "#00dc2c" },
